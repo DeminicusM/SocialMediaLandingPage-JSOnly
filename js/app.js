@@ -1,4 +1,35 @@
 // let root = document.getElementsByClassName("root")[0];
+let data = {
+  fullName: "Bownce Gawd",
+  position: "Producer / Engineer",
+  socials: [
+    {
+      id: "fb",
+      service: "Facebook",
+      url: "https://www.facebook.com/bowncegawd",
+      icon: "fa-brands fa-facebook",
+    },
+    {
+      id: "ig",
+      service: "Instagram",
+      url: "https://www.Instagram.com/bowncegawd",
+      icon: "fa-brands fa-instagram",
+    },
+    {
+      id: "tk",
+      service: "TikTok",
+      url: "https://www.tiktok.com/@bowncegawd",
+      icon: "fa-brands fa-tiktok",
+    },
+    {
+      id: "tw",
+      service: "Twitter",
+      url: "https://www.twitter.com/bowncegawd",
+      icon: "fa-brands fa-twitter",
+    },
+  ],
+};
+
 let style = document.createElement("style");
 let root = document.createElement("div");
 let body = document.getElementsByTagName("body")[0];
@@ -10,27 +41,13 @@ let html = `
             class="card__user-img"
           />
           <div class="card-info">
-            <span class="card__name">Bownce Gawd</span>
-            <span class="card__title">Producer / Engineer</span>
+            <span class="card__name">${data.fullName}</span>
+            <span class="card__title">${data.position}</span>
           </div>
           <div class="card__socials">
-            <div class="card__icon card__icon--fb">
-              <span class="card__icon-box">
-                <i class="fa-brands fa-facebook"></i>
-              </span>
-              <span class="card__icon-title"> Facebook </span>
-            </div>
-            <div class="card__icon card__icon--ig">
-              <span class="card__icon-box">
-                <i class="fa-brands fa-instagram"></i>
-              </span>
-              <span class="card__icon-title"> Instagram </span>
-            </div>
-            <div class="card__icon card__icon--tk">
-              <span class="card__icon-box">
-                <i class="fa-brands fa-tiktok"></i>
-              </span>
-              <span class="card__icon-title"> Tiktok </span>
+          
+      
+              
             </div>
           </div>
         </div>
@@ -132,6 +149,14 @@ card__title{
     background: #f96262;
     color: white;
 }
+.card__icon--tw{
+    color: #1DA1F2;
+    border: 1px solid #1DA1F2; 
+}
+.card__icon--tw:hover{
+    background: #1DA1F2;
+    color: white;
+}
 `;
 body.prepend(root);
 root.classList.add("root");
@@ -140,4 +165,22 @@ root.prepend(card);
 root.style.cssText = `background: url('https://content.beatstars.com/fit-in/500x500/filters:format(.jpeg):quality(80):fill(000000)/users/prod/17838/image/1641856694/bownce-gawdlogo-biggerpn.png');
     background-size: cover;
     background-position: center;`;
-document.getElementsByClassName("card")[0].innerHTML = html;
+root.prepend(style);
+style.innerHTML = cssStyles;
+card.innerHTML = html;
+let cardSocials = card.getElementsByClassName("card__socials")[0];
+
+data.socials.forEach((item, index) => {
+  let tempNode = document.createElement("div");
+  tempNode.classList.add("card__icon", `card__icon--${item.id}`);
+  tempNode.innerHTML = `
+            <span class="card__icon-box">
+              <i class="${item.icon}"></i>
+            </span>
+            <span class="card__icon-title">
+              ${item.service}
+            </span>`;
+
+  cardSocials.append(tempNode);
+});
+console.log(card);
