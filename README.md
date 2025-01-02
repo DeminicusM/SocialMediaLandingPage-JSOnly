@@ -2,8 +2,6 @@
 Social media landing page only using javaScript
 ---
 
-# **Social Media Landing Page**  
-
 ### **Table of Contents**  
 - [Overview](#overview)  
 - [Features](#features)  
