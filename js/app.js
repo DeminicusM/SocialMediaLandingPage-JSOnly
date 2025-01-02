@@ -1,4 +1,3 @@
-// let root = document.getElementsByClassName("root")[0];
 let data = {
   fullName: "Bownce Gawd",
   position: "Producer / Engineer",
@@ -29,12 +28,12 @@ let data = {
     },
   ],
 };
-
-let style = document.createElement("style");
-let root = document.createElement("div");
-let body = document.getElementsByTagName("body")[0];
-let card = document.createElement("section");
-let html = `
+let cardApp = (data) => {
+  let body = document.getElementsByTagName("body")[0];
+  let root = document.createElement("div");
+  let style = document.createElement("style");
+  let card = document.createElement("section");
+  let html = `
 <div class="card__wrapper">
           <img
             src="https://i1.sndcdn.com/avatars-SuppRnZpZTefMpUC-tcLRyg-t1080x1080.jpg"
@@ -52,7 +51,7 @@ let html = `
           </div>
         </div>
 `;
-let cssStyles = `
+  let cssStyles = `
 .card{
     width: 100%;
     height: 100vh;
@@ -62,8 +61,7 @@ let cssStyles = `
     backdrop-filter: blur(50px);
 }
 .card__wrapper{
-    height: 400px;
-    padding: 20px; 
+    padding: 20px 20px 3rem 20px; 
     max-width: 300px;
     width: 100%;
     background: white;
@@ -158,29 +156,34 @@ card__title{
     color: white;
 }
 `;
-body.prepend(root);
-root.classList.add("root");
-card.classList.add("card");
-root.prepend(card);
-root.style.cssText = `background: url('https://content.beatstars.com/fit-in/500x500/filters:format(.jpeg):quality(80):fill(000000)/users/prod/17838/image/1641856694/bownce-gawdlogo-biggerpn.png');
+
+  body.prepend(root);
+  root.classList.add("root");
+  root.prepend(card);
+  root.style.cssText = `background: url('https://content.beatstars.com/fit-in/500x500/filters:format(.jpeg):quality(80):fill(000000)/users/prod/17838/image/1641856694/bownce-gawdlogo-biggerpn.png');
     background-size: cover;
     background-position: center;`;
-root.prepend(style);
-style.innerHTML = cssStyles;
-card.innerHTML = html;
-let cardSocials = card.getElementsByClassName("card__socials")[0];
+  root.prepend(style);
+  card.classList.add("card");
+  style.innerHTML = cssStyles;
+  card.innerHTML = html;
 
-data.socials.forEach((item, index) => {
-  let tempNode = document.createElement("div");
-  tempNode.classList.add("card__icon", `card__icon--${item.id}`);
-  tempNode.innerHTML = `
+  let cardSocials = card.getElementsByClassName("card__socials")[0];
+
+  data.socials.forEach((item, index) => {
+    let tempNode = document.createElement("a");
+    tempNode.href = item.url;
+    tempNode.target = "_blank";
+    tempNode.classList.add("card__icon", `card__icon--${item.id}`);
+    tempNode.innerHTML = `
             <span class="card__icon-box">
               <i class="${item.icon}"></i>
             </span>
             <span class="card__icon-title">
               ${item.service}
             </span>`;
+    cardSocials.append(tempNode);
+  });
+};
 
-  cardSocials.append(tempNode);
-});
-console.log(card);
+cardApp(data);
